@@ -7,4 +7,5 @@ RUN gem install mina-circle -v '~> 2.0.1'
 RUN gem install mina-rollbar -v '~> 0.1.6'
 RUN gem install dotenv
 
-ENTRYPOINT ["mina", "deploy"]
+ENTRYPOINT ["mina"]
+CMD ["help"]
