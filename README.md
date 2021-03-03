@@ -1,20 +1,35 @@
 # Deploy your site via Mina and MinaCircle
 
+# Setup
 
-You need to put your mina circle token in the .env file for your project. If you are already using mina-circle it should be in `~/.mina-circle.yml`, or you can generate a new one on [CircleCI](https://circleci.com/account/api).
-
-
-# To deploy
-```
-docker run -it --env-file=.env -v ~/.ssh:/root/.ssh:ro -v ${PWD}:/deploy:ro mina-deploy
+```sh
+$ docker run -it --rm -v ${PWD}:/deploy sparkbox/mina-deploy init
 ```
 
-# To deploy a specific branch
-```
-docker run -it --env-file=.env -v ~/.ssh:/root/.ssh:ro -v ${PWD}:/deploy:ro mina-deploy branch="branch-name"
+You need to put your mina circle token in the .env file for your project. If you are already using mina-circle it should be in `~/.mina-circle.yml`, or you can generate a new one on [CircleCI][circle-api].
+
+Refer to the [`mina-circle`][mina-circle-config] docs for further configuration. After this, you can run the `setup` command.
+
+```sh
+$ docker run -it --rm -v ${PWD}:/deploy sparkbox/mina-deploy setup
 ```
 
-# To deploy on a specific environment
+# Deploy
+
+## Default
+```sh
+$ docker run -it --rm --env-file=.env -v ~/.ssh:/root/.ssh:ro -v ${PWD}:/deploy:ro sparkbox/mina-deploy deploy
 ```
-docker run -it --env-file=.env -v ~/.ssh:/root/.ssh:ro -v ${PWD}:/deploy:ro mina-deploy on="env-name"
+
+## Branch
+```sh
+$ docker run -it --rm --env-file=.env -v ~/.ssh:/root/.ssh:ro -v ${PWD}:/deploy:ro sparkbox/mina-deploy deploy branch="branch-name"
 ```
+
+## Environment
+```sh
+$ docker run -it --rm --env-file=.env -v ~/.ssh:/root/.ssh:ro -v ${PWD}:/deploy:ro sparkbox/mina-deploy deploy on="env-name"
+```
+
+[circle-api]: https://circleci.com/account/api
+[mina-circle-config]: https://github.com/sparkbox/mina-circle#mina-configuration
